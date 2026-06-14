@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Per-user defaults for the `learner` user (created via env vars in
+     docker-compose.yml). These settings shape the learning experience:
+     they surface query stats and keep a generous-but-bounded memory budget. -->
+<clickhouse>
+    <profiles>
+        <default>
+            <!-- Show how much data each query actually read. Great for the
+                 primary-key / partitioning / skipping-index lessons where the
+                 whole point is "did we prune the data we expected?". -->
+            <log_queries>1</log_queries>
+            <!-- A single dev container shouldn't try to eat all your RAM. -->
+            <max_memory_usage>4000000000</max_memory_usage>
+        </default>
+    </profiles>
+</clickhouse>

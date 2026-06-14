@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Listen on all interfaces inside the container so Docker's published-port
+     proxy (host -> container) can reach the HTTP (8123) and native (9000)
+     ports. Without this, ClickHouse binds only to the container's loopback and
+     host connections get "connection reset by peer".
+     This is a dev convenience; in production restrict listen_host instead. -->
+<clickhouse>
+    <listen_host>0.0.0.0</listen_host>
+</clickhouse>

@@ -1,0 +1,4 @@
+# Official ClickHouse Python driver (HTTP-based, great pandas support).
+clickhouse-connect>=0.8.0
+pandas>=2.0
+python-dotenv>=1.0

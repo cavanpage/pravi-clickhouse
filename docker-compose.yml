@@ -1,0 +1,39 @@
+# ClickHouse single-node setup for learning.
+# Pinned to the 26.3 LTS line for stability — all features taught here
+# (native JSON type, refreshable materialized views, async inserts) are GA.
+# Bump to `latest` once you're comfortable and want the newest features.
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:26.3
+    container_name: clickhouse-start
+    ports:
+      - "8123:8123"   # HTTP interface (Play UI at http://localhost:8123/play)
+      - "9000:9000"   # Native protocol (clickhouse-client, Python/Go drivers)
+    # ClickHouse opens many files; raise the limit as the docs recommend.
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    environment:
+      CLICKHOUSE_DB: learn
+      CLICKHOUSE_USER: learner
+      CLICKHOUSE_PASSWORD: learn
+      # Lets the `learner` user create other users/roles so you can practice RBAC.
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    volumes:
+      - ./config/config.d:/etc/clickhouse-server/config.d:ro
+      # NOT read-only: the entrypoint writes a default-user.xml here when
+      # CLICKHOUSE_USER is set.
+      - ./config/users.d:/etc/clickhouse-server/users.d
+      - ch_data:/var/lib/clickhouse
+      - ch_logs:/var/log/clickhouse-server
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 24
+      start_period: 10s
+
+volumes:
+  ch_data:
+  ch_logs:

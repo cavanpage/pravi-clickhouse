@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- Keep container logs readable while learning. ClickHouse defaults to
+     'trace' which is very noisy. 'information' is plenty for a dev box. -->
+<clickhouse>
+    <logger>
+        <level>information</level>
+    </logger>
+    <!-- Friendly name shown in the clickhouse-client prompt. -->
+    <display_name>clickhouse-start</display_name>
+</clickhouse>
