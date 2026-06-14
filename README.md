@@ -1,4 +1,4 @@
-# clickhouse-start
+# Pravi Clickhouse
 
 A hands-on course for learning [ClickHouse](https://clickhouse.com/docs) by
 doing. Each lesson implements one of ClickHouse's
